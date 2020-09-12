@@ -5,14 +5,14 @@ import java.math.BigInteger;
 //p and q -> 8 bits long
 //encrypt 1 letter at a time
 public class RSA {
-    public long modular(BigInteger a, long b){  
+    long modular(BigInteger a, long b){  
         BigInteger bbig = BigInteger.valueOf(b);
         BigInteger resultult = a.remainder(bbig);
         long result = resultult.longValue();
         return result;
         }
 
-    public long gcd(long a, long b){
+    long gcd(long a, long b){
         long getgcd = 1;
         for(int i = 1; i <= a && i <= b; i++){
             if(a%i == 0 && b%i == 0)
@@ -21,7 +21,7 @@ public class RSA {
         return getgcd;
     }
 
-    public long Phifunction(long n){
+    long Phifunction(long n){
     int count = 0;
     int divisor = 0;
     int nint = (int)n;
@@ -35,7 +35,7 @@ public class RSA {
     }
 
 
-	public boolean MillerTest(long n) {
+	boolean MillerTest(long n) {
         long tmp = n-1;
         if (n == 0 || n == 1){
             return false;
@@ -64,7 +64,7 @@ public class RSA {
     }
     
     // Calculate (a to power of b) % c 
-    public long PowerModular(long a, long b, long c){
+    long PowerModular(long a, long b, long c){
         long result = 1;
         for (int i = 0; i < b; i++)
         {
@@ -75,7 +75,7 @@ public class RSA {
     }
 
     //generate an 8-bit prime
-    public int Primegeneration(int max, int min){
+    int Primegeneration(int max, int min){
         Random rand = new Random();
         boolean isprime = false;
         int randomNum = 0;
@@ -93,7 +93,7 @@ public class RSA {
     int d;
     char plaintext;
     //encryption
-	public long encryption(int p, int q){
+	long encryption(int p, int q){
         n = p * q;
         long phiofn = Phifunction((long)n);
         System.out.println("n = "+ n + "," + "Phi of n = "+phiofn);
@@ -122,7 +122,7 @@ public class RSA {
         return ylong;
     }
 
-    public BigInteger squareandmultiply(long base, int exp){
+    BigInteger squareandmultiply(long base, int exp){
         String bin = Integer.toBinaryString(exp);
         System.out.println("bin: "+bin);
         int[] exparray = Arrays.stream(bin.split("")).mapToInt(Integer::parseInt).toArray();
@@ -143,7 +143,7 @@ public class RSA {
     } 
 
     //decryption
-    public char decryption(long y){
+    char decryption(long y){
         BigInteger resultbig = squareandmultiply(y, d);
         int tmp = resultbig.intValue();
         char x =(char)tmp;
