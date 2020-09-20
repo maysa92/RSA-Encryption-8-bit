@@ -111,20 +111,19 @@ public class RSA {
         System.out.println("d = "+ d);
         
         Scanner userplaintext = new Scanner(System.in);  
-        System.out.println("Enter the plain text ( 1 letter ): ");
+        System.out.print("Enter the plain text ( 1 letter ): ");
         this.plaintext = userplaintext.next().charAt(0);
 
         //convert plaintext to ascii
         int ascii = (int) plaintext;
         BigInteger y = squareandmultiply(ascii, e);
         long ylong = modular(y, n);
-        System.out.println("ascii: "+ascii+"  "+"Encrypted: "+ylong);
+        System.out.println("Encrypted: "+ylong);
         return ylong;
     }
 
     BigInteger squareandmultiply(long base, int exp){
         String bin = Integer.toBinaryString(exp);
-        System.out.println("bin: "+bin);
         int[] exparray = Arrays.stream(bin.split("")).mapToInt(Integer::parseInt).toArray();
         BigInteger[] step = new BigInteger[exparray.length + 1];
         step[1] = BigInteger.valueOf(base);
@@ -138,7 +137,7 @@ public class RSA {
                 step[i+1] = step[i+1].remainder(nbig);
             }
         }
-        System.out.println("y = "+step[exparray.length]);
+        //System.out.println("y = "+step[exparray.length]);
         return step[exparray.length];
     } 
 
@@ -166,7 +165,15 @@ public class RSA {
         System.out.println("Randomly generated p: " +prime);
         int prime2 = test.Primegeneration(256, 128);
         System.out.println("Randomly generated q: " +prime2);
+        long startTime = System.nanoTime();
         long y = test.encryption(prime, prime2);
+        long elapsedTime = System.nanoTime() - startTime;
+        System.out.println("Execution time for encryption(millis): "
+                + elapsedTime/1000000);
+        startTime = System.nanoTime();
         test.decryption(y);
+        elapsedTime = System.nanoTime() - startTime;
+        System.out.println("Execution time for decryption(millis): "
+                + elapsedTime/1000000);
     }
 }
